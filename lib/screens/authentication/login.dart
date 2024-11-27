@@ -17,6 +17,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = CFSHelperFunctions.isDarkMode(context);
     final height = CFSHelperFunctions.screenHeight();
+    final width = CFSHelperFunctions.screenWidth();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -28,13 +29,16 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16,),
                   const CFSAppbarBackPress(),
                   SizedBox(
-                    height: height * 0.1,
+                    height: height * 0.06,
                   ),
                   Text(
                     "Login your\nAccount",
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(
                     height: height * 0.04,
@@ -61,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                                 icon: const Icon(Iconsax.eye_slash))),
                       ),
                       SizedBox(
-                        height: height * 0.02,
+                        height: height * 0.022,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,17 +81,17 @@ class LoginScreen extends StatelessWidget {
                               const SizedBox(
                                 width: 5,
                               ),
-                              const Text(
+                               Text(
                                 "Save me",
-                                style: TextStyle(fontSize: 17),
+                                style: TextStyle(fontSize: width * 0.035),
                               )
                             ],
                           ),
                           InkWell(
                               onTap: () =>
                                   Get.to(() => const ForgetPasswordScreen()),
-                              child: const Text("Forget Password ?",
-                                  style: TextStyle(fontSize: 17)))
+                              child: Text("Forget Password ?",
+                                  style: TextStyle(fontSize: width * 0.035)))
                         ],
                       ),
                       SizedBox(
@@ -105,7 +109,8 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Text(
                             "Create a new Account?",
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: TextStyle(
+                              fontSize: width * 0.035,),
                           ),
                           InkWell(
                             onTap: () => Navigator.push(
@@ -113,11 +118,11 @@ class LoginScreen extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         const SignupScreen())),
-                            child: const Text(
+                            child: Text(
                               "Sign up",
                               style: TextStyle(
                                   color: CFSColors.blue,
-                                  fontSize: 21,
+                                  fontSize: width * 0.036,
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
@@ -136,7 +141,7 @@ class LoginScreen extends StatelessWidget {
               thickness: 1,
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 38),
+              padding: EdgeInsets.only(top: 28, bottom: 36, left: 20, right: 20,),
               child: AuthSocialAccounts(),
             ),
           ],

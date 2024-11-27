@@ -26,24 +26,24 @@ class PostInteractionWidget extends StatelessWidget {
               ? const Icon(
             Iconsax.heart5,
             color: CFSColors.red,
-            size: 28,
+            size: 24,
           )
               : const Icon(
             Iconsax.heart,
             color: CFSColors.red,
-            size: 28,
+            size: 24,
           ) :
            Icon(
                   icon,
                   color: CFSColors.white,
-                  size: 28,
+                  size: 24,
                 ),
           const SizedBox(
             width: 8,
           ),
           Text(
             text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white,),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white,),
           )
         ],
       ),

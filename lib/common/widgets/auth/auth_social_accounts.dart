@@ -20,7 +20,7 @@ class AuthSocialAccounts extends StatelessWidget {
           "Continue with Accounts",
           style: TextStyle(
               color: dark ? CFSColors.white : CFSColors.black,
-              fontSize: width * 0.048,
+              fontSize: width * 0.042,
               fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
@@ -31,8 +31,8 @@ class AuthSocialAccounts extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              width: width * 0.40,
-              height: height * 0.08,
+              width: width * 0.36,
+              height: height * 0.07,
               decoration: BoxDecoration(
                 color: CFSColors.blue.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(12),
@@ -40,14 +40,14 @@ class AuthSocialAccounts extends StatelessWidget {
               child: Center(
                   child: Image.asset(
                     CFSImages.googleIcon,
-                    height: 28,
-                    width: 28,
+                    height: 24,
+                    width: 24,
                     color: CFSColors.blue,
                   )),
             ),
             Container(
-              width: width * 0.40,
-              height: height * 0.08,
+              width: width * 0.36,
+              height: height * 0.07,
               decoration: BoxDecoration(
                 color: CFSColors.blue.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(12),
@@ -55,8 +55,8 @@ class AuthSocialAccounts extends StatelessWidget {
               child: Center(
                   child: Image.asset(
                     CFSImages.facebookIcon,
-                    height: 32,
-                    width: 32,
+                    height: 28,
+                    width: 28,
                     color: CFSColors.blue,
                   )),
             ),

@@ -53,5 +53,6 @@ class CFSColors{
 
   static const Color blue = Color(0xFF0677E8);
   static const Color red = Color(0xFFF21C44);
+  static const Color tfDarkGrey = Color(0xFF202123);
 
 }

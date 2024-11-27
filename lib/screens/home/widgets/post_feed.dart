@@ -12,15 +12,18 @@ import '../../../utils/constants/image_strings.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class PostModule extends StatelessWidget {
-  PostModule({super.key});
+  PostModule({super.key, required this.index});
 
-  final PostFeedController controller = Get.put(PostFeedController());
+  final int index;
+  final PostFeedController controller = Get.find();
+
+
 
   void _handleDoubleTap() {
-    controller.showLottie.value = true;
+    controller.showLottieList[index].value = true;
 
     Timer(const Duration(seconds: 3), () {
-      controller.showLottie.value = false;
+      controller.showLottieList[index].value = false;
     });
   }
 
@@ -60,8 +63,8 @@ class PostModule extends StatelessWidget {
                     height: 45,
                     width: 45,
                   )),
-              title: const Text("Blenderr Art", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white,),),
-              subtitle: const Text("8h", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white,),),
+              title: const Text("Blenderr Art", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white,),),
+              subtitle: const Text("8h", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.white,),),
               trailing: const Icon(Icons.more_vert, color: Colors.white,),
             ),
           ),
@@ -69,14 +72,14 @@ class PostModule extends StatelessWidget {
             bottom: 12,
             left: 12,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
               decoration: BoxDecoration(
                 color: CFSColors.myGreyDarkMode,
                 borderRadius: BorderRadius.circular(18),
               ),
               child: const Row(
                 children: [
-                  PostInteractionWidget(isLiked: true, text: "325", forLikeIcon: true,),
+                  PostInteractionWidget(isLiked: false, text: "325", forLikeIcon: true,),
                   PostInteractionWidget(text: "98", icon: Iconsax.messages_3,),
                   PostInteractionWidget(text: "", icon: Iconsax.direct_right,)
                 ],
@@ -86,10 +89,10 @@ class PostModule extends StatelessWidget {
 
           // Lottie animation
           Obx(() {
-            return controller.showLottie.value
+            return controller.showLottieList[index].value
                 ? Center(
               child: Lottie.asset(
-                'assets/animations/small_hearts.json',
+                CFSImages.smallHeartsAnim,
                 width: 300,
                 height: 220,
                 repeat: true,

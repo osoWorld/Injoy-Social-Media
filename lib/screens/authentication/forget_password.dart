@@ -10,6 +10,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = CFSHelperFunctions.screenHeight();
+    final width = CFSHelperFunctions.screenWidth();
 
     return Scaffold(
       body: Padding(
@@ -17,23 +18,28 @@ class ForgetPasswordScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 16,),
             const CFSAppbarBackPress(),
             SizedBox(
-              height: height * 0.1,
+              height: height * 0.08,
             ),
             Text(
               "Forgotten your\nPassword",
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(
-              height: height * 0.015,
+              height: height * 0.018,
             ),
             Text(
               "Enter your registered email address to get a password reset link",
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: width * 0.030
+              ),
             ),
             SizedBox(
-              height: height * 0.04,
+              height: height * 0.055,
             ),
             Form(
                 child: Column(

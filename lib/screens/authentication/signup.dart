@@ -16,6 +16,7 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = CFSHelperFunctions.isDarkMode(context);
     final height = CFSHelperFunctions.screenHeight();
+    final width = CFSHelperFunctions.screenWidth();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -26,13 +27,16 @@ class SignupScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16,),
                   const CFSAppbarBackPress(),
                   SizedBox(
-                    height: height * 0.1,
+                    height: height * 0.06,
                   ),
                   Text(
                     "Create your\nAccount",
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(
                     height: height * 0.04,
@@ -84,15 +88,16 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       Text(
                         "Already Have An Account?",
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: TextStyle(
+                            fontSize: width * 0.035,),
                       ),
                        InkWell(
                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen())),
-                         child: const Text(
+                         child: Text(
                           "Sign in",
                           style: TextStyle(
                               color: CFSColors.blue,
-                              fontSize: 21,
+                              fontSize: width * 0.036,
                               fontWeight: FontWeight.w600),
                          ),
                        ),
@@ -110,7 +115,7 @@ class SignupScreen extends StatelessWidget {
             ),
             const Padding(
               padding:
-                  EdgeInsets.symmetric(horizontal: 20.0, vertical: 38),
+                  EdgeInsets.only(top: 28, bottom: 36, left: 20, right: 20,),
               child: AuthSocialAccounts(),
             ),
           ],
@@ -119,4 +124,3 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
-
