@@ -16,7 +16,6 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = CFSHelperFunctions.isDarkMode(context);
     final height = CFSHelperFunctions.screenHeight();
-    final width = CFSHelperFunctions.screenWidth();
 
     return Scaffold(
       body: SingleChildScrollView(

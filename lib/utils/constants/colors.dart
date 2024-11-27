@@ -24,6 +24,7 @@ class CFSColors{
   static const Color lightContainer = Color(0xFFf6f6f6);
   static Color darkContainer = CFSColors.white.withOpacity(0.1);
 
+
   //Button Colors
   static const Color buttonPrimary = Color(0xFF4b68ff);
   static const Color buttonSecondary = Color(0xFF6c757d);
@@ -51,5 +52,6 @@ class CFSColors{
   static const Color white = Color(0xFFffffff);
 
   static const Color blue = Color(0xFF0677E8);
+  static const Color red = Color(0xFFF21C44);
 
 }
