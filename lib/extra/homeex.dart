@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:injoy/screens/home/widgets/post_feed.dart';
-import 'package:injoy/utils/constants/image_strings.dart';
 
-import '../../utils/constants/colors.dart';
-import '../../utils/helpers/helper_functions.dart';
-import 'controllers/post_feed_controller.dart';
+import '../screens/home/controllers/post_feed_controller.dart';
+import '../screens/home/widgets/post_feed.dart';
+import '../utils/constants/colors.dart';
+import '../utils/constants/image_strings.dart';
+import '../utils/helpers/helper_functions.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class Homeex extends StatelessWidget {
+  const Homeex({super.key});
 
   @override
   Widget build(BuildContext context) {
