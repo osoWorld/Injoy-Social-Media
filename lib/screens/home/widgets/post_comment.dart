@@ -3,11 +3,14 @@ import 'package:iconsax/iconsax.dart';
 import 'package:injoy/common/widgets/icon_text/icon_text_widget.dart';
 import 'package:injoy/common/widgets/image/circular_image.dart';
 
+import '../../../utils/helpers/helper_functions.dart';
+
 class PostCommentWidget extends StatelessWidget {
   const PostCommentWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final dark = CFSHelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
@@ -66,7 +69,7 @@ class PostCommentWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Divider(
               height: 1,
-              color: Colors.white.withOpacity(0.3),
+              color: dark ? Colors.white.withOpacity(0.3) : Colors.black.withOpacity(0.3),
             ),
           ),
           const SizedBox(

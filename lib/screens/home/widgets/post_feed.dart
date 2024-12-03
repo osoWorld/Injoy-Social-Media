@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:injoy/common/widgets/icon/circular_icon.dart';
 import 'package:injoy/common/widgets/image/circular_image.dart';
 import 'package:injoy/screens/home/controllers/post_feed_controller.dart';
 import 'package:injoy/screens/home/widgets/post_comment.dart';
@@ -93,16 +94,17 @@ class PostModule extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-
                       _handleDoubleTap();
                     },
-                    child: Obx(() {
-                      return PostInteractionWidget(
-                        isLiked: controller.isLiked[index].value,
-                        text: "325",
-                        forLikeIcon: true,
-                      );
-                    },),
+                    child: Obx(
+                      () {
+                        return PostInteractionWidget(
+                          isLiked: controller.isLiked[index].value,
+                          text: "325",
+                          forLikeIcon: true,
+                        );
+                      },
+                    ),
                   ),
                   GestureDetector(
                       onTap: () {
@@ -112,9 +114,14 @@ class PostModule extends StatelessWidget {
                         text: "98",
                         icon: Iconsax.messages_3,
                       )),
-                  const PostInteractionWidget(
-                    text: "",
-                    icon: Iconsax.share,
+                  GestureDetector(
+                    onTap: () {
+                      openPostShareBottomSheet(context);
+                    },
+                    child: const PostInteractionWidget(
+                      text: "",
+                      icon: Iconsax.share,
+                    ),
                   )
                 ],
               ),
@@ -141,6 +148,7 @@ class PostModule extends StatelessWidget {
   }
 
   void openCommentBottomSheet(BuildContext context) {
+    final dark = CFSHelperFunctions.isDarkMode(context);
     FocusNode commentFocusNode = FocusNode();
 
     showModalBottomSheet(
@@ -154,19 +162,28 @@ class PostModule extends StatelessWidget {
             children: [
               const Text(
                 "Comments",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, fontFamily: "Inter"),
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: "Inter"),
               ),
-              const SizedBox(height: 22,),
+              const SizedBox(
+                height: 22,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: 8,
                   itemBuilder: (context, index) {
                     return const PostCommentWidget();
-                  },),
+                  },
+                ),
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
               Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Row(
                   children: [
                     Expanded(
@@ -177,19 +194,147 @@ class PostModule extends StatelessWidget {
                           style: const TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                               hintText: "Type Comment",
-                              hintStyle: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 14)
-                          ),
+                              hintStyle: TextStyle(
+                                  color: dark
+                                      ? Colors.white.withOpacity(0.4)
+                                      : Colors.black.withOpacity(0.4),
+                                  fontSize: 14)),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8,),
-                    IconButton(onPressed: () => {}, icon: const Icon(Iconsax.send_1, color: CFSColors.blue,)),
-                    const SizedBox(width: 4,),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    IconButton(
+                        onPressed: () => {},
+                        icon: const Icon(
+                          Iconsax.send_1,
+                          color: CFSColors.blue,
+                        )),
+                    const SizedBox(
+                      width: 4,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  void openPostShareBottomSheet(BuildContext context) {
+    final width = CFSHelperFunctions.screenWidth();
+    final dark = CFSHelperFunctions.isDarkMode(context);
+
+    controller.initializeTappingList(20);
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+          child: Obx(() {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 45,
+                  child: TextField(
+                    style: const TextStyle(fontSize: 14),
+                    decoration: InputDecoration(
+                        hintText: "Search",
+                        hintStyle: TextStyle(
+                            color: dark
+                                ? Colors.white.withOpacity(0.4)
+                                : Colors.black.withOpacity(0.4),
+                            fontSize: 14),
+                        prefixIcon: const Icon(
+                          Iconsax.search_normal,
+                          size: 15,
+                        )),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: 20,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Stack(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    controller.isTapped[index].value =
+                                    !controller.isTapped[index].value;
+                                  },
+                                  child: const CFSCircularImage(
+                                    size: 65,
+                                    radius: 40,
+                                  )),
+                              Obx(() {
+                                return controller.isTapped[index].value
+                                    ? const Positioned(
+                                  bottom: 1,
+                                  right: 1,
+                                  child: Icon(
+                                    Iconsax.tick_circle5,
+                                    color: CFSColors.blue,
+                                  ),
+                                )
+                                    : const SizedBox.shrink();
+                              })
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            "Dev Suffian",
+                            style: TextStyle(
+                                fontSize: 13.5, overflow: TextOverflow.ellipsis),
+                            maxLines: 1,
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                if (controller.isTapped.any((element) => element.value))
+                  SizedBox(
+                    width: width * 0.75,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Perform your action here
+                      },
+                      child: const Text("Send to Dev Suffian"),
+                    ),
+                  )
+                else
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CFSCircularIcon(size: 48, icon: Icons.share),
+                      CFSCircularIcon(size: 48, icon: Iconsax.link),
+                      CFSCircularIcon(size: 48, icon: Iconsax.story),
+                    ],
+                  )
+              ],
+            );
+          },),
         );
       },
     );
