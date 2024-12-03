@@ -21,6 +21,7 @@ class PostModule extends StatelessWidget {
 
   void _handleDoubleTap() {
     controller.showLottieList[index].value = true;
+    controller.isLiked[index].value = !controller.isLiked[index].value;
 
     Timer(const Duration(seconds: 3), () {
       controller.showLottieList[index].value = false;
@@ -90,10 +91,18 @@ class PostModule extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const PostInteractionWidget(
-                    isLiked: false,
-                    text: "325",
-                    forLikeIcon: true,
+                  GestureDetector(
+                    onTap: () {
+
+                      _handleDoubleTap();
+                    },
+                    child: Obx(() {
+                      return PostInteractionWidget(
+                        isLiked: controller.isLiked[index].value,
+                        text: "325",
+                        forLikeIcon: true,
+                      );
+                    },),
                   ),
                   GestureDetector(
                       onTap: () {
@@ -132,11 +141,10 @@ class PostModule extends StatelessWidget {
   }
 
   void openCommentBottomSheet(BuildContext context) {
-    FocusNode textFieldFocusNode = FocusNode();
+    FocusNode commentFocusNode = FocusNode();
 
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context) {
@@ -165,6 +173,7 @@ class PostModule extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: TextField(
+                          focusNode: commentFocusNode,
                           style: const TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                               hintText: "Type Comment",
