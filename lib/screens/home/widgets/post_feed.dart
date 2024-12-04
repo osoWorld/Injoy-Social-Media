@@ -8,6 +8,7 @@ import 'package:injoy/common/widgets/image/circular_image.dart';
 import 'package:injoy/screens/home/controllers/post_feed_controller.dart';
 import 'package:injoy/screens/home/widgets/post_comment.dart';
 import 'package:injoy/screens/home/widgets/post_interaction.dart';
+import 'package:injoy/screens/home/widgets/post_popup_menu.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -75,10 +76,7 @@ class PostModule extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              trailing: Icon(
-                Icons.more_vert,
-                color: Colors.white,
-              ),
+              trailing: PostPopupMenuWidget(),
             ),
           ),
           Positioned(
