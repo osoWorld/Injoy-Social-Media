@@ -11,6 +11,7 @@ import 'package:injoy/screens/home/widgets/post_interaction.dart';
 import 'package:injoy/screens/home/widgets/post_popup_menu.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../common/widgets/share/share.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -235,104 +236,134 @@ class PostModule extends StatelessWidget {
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-          child: Obx(() {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 45,
-                  child: TextField(
-                    style: const TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                        hintText: "Search",
-                        hintStyle: TextStyle(
-                            color: dark
-                                ? Colors.white.withOpacity(0.4)
-                                : Colors.black.withOpacity(0.4),
-                            fontSize: 14),
-                        prefixIcon: const Icon(
-                          Iconsax.search_normal,
-                          size: 15,
-                        )),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: 20,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Stack(
-                            children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    controller.isTapped[index].value =
-                                    !controller.isTapped[index].value;
-                                  },
-                                  child: const CFSCircularImage(
-                                    size: 65,
-                                    radius: 40,
-                                  )),
-                              Obx(() {
-                                return controller.isTapped[index].value
-                                    ? const Positioned(
-                                  bottom: 1,
-                                  right: 1,
-                                  child: Icon(
-                                    Iconsax.tick_circle5,
-                                    color: CFSColors.blue,
-                                  ),
-                                )
-                                    : const SizedBox.shrink();
-                              })
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            "Dev Suffian",
-                            style: TextStyle(
-                                fontSize: 13.5, overflow: TextOverflow.ellipsis),
-                            maxLines: 1,
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                if (controller.isTapped.any((element) => element.value))
+          child: Obx(
+            () {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                   SizedBox(
-                    width: width * 0.75,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Perform your action here
-                      },
-                      child: const Text("Send to Dev Suffian"),
+                    height: 45,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 14),
+                      decoration: InputDecoration(
+                          hintText: "Search",
+                          hintStyle: TextStyle(
+                              color: dark
+                                  ? Colors.white.withOpacity(0.4)
+                                  : Colors.black.withOpacity(0.4),
+                              fontSize: 14),
+                          prefixIcon: const Icon(
+                            Iconsax.search_normal,
+                            size: 15,
+                          )),
                     ),
-                  )
-                else
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CFSCircularIcon(size: 48, icon: Icons.share),
-                      CFSCircularIcon(size: 48, icon: Iconsax.link),
-                      CFSCircularIcon(size: 48, icon: Iconsax.story),
-                    ],
-                  )
-              ],
-            );
-          },),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: 20,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 16),
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Stack(
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      controller.isTapped[index].value =
+                                          !controller.isTapped[index].value;
+                                    },
+                                    child: const CFSCircularImage(
+                                      size: 65,
+                                      radius: 40,
+                                    )),
+                                Obx(() {
+                                  return controller.isTapped[index].value
+                                      ? const Positioned(
+                                          bottom: 1,
+                                          right: 1,
+                                          child: Icon(
+                                            Iconsax.tick_circle5,
+                                            color: CFSColors.blue,
+                                          ),
+                                        )
+                                      : const SizedBox.shrink();
+                                })
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Text(
+                              "Dev Suffian",
+                              style: TextStyle(
+                                  fontSize: 13.5,
+                                  overflow: TextOverflow.ellipsis),
+                              maxLines: 1,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  if (controller.isTapped.any((element) => element.value))
+                    SizedBox(
+                      width: width * 0.75,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Perform your action here
+                        },
+                        child: const Text("Send to Dev Suffian"),
+                      ),
+                    )
+                  else
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CFSCircularIcon(size: 48, icon: Icons.share),
+                        CFSCircularIcon(size: 48, icon: Iconsax.link),
+                        CFSCircularIcon(size: 48, icon: Iconsax.story),
+                      ],
+                    )
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void postShareBottomSheet(BuildContext context, RxList<RxBool> isTapped) {
+    final width = CFSHelperFunctions.screenWidth();
+    final dark = CFSHelperFunctions.isDarkMode(context);
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return ShareBottomSheetWidget(
+          isTapped: isTapped,
+          isDarkMode: dark,
+          screenWidth: width,
+          onSendButtonPressed: () {
+            // Handle send button action
+            print("Send button pressed");
+          },
+          onGridItemTapped: (index) {
+            isTapped[index].value = !isTapped[index].value;
+          },
         );
       },
     );

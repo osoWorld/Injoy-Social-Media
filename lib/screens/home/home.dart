@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:injoy/screens/home/sub_screens/stories/see_stories.dart';
 import 'package:injoy/screens/home/widgets/post_feed.dart';
 import 'package:injoy/utils/constants/image_strings.dart';
 
@@ -60,69 +61,76 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return index == 0
                               ? Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 80,
-                                    width: 80,
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.asset(CFSImages.userIcon),
-                                  ),
-                                  Positioned(
-                                      bottom: 8,
-                                      right: 8,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 80,
+                                          width: 80,
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: CFSColors.blue),
-                                        child: const Icon(
-                                          Icons.add,
-                                          color: Colors.white,
+                                          ),
+                                          child:
+                                              Image.asset(CFSImages.userIcon),
                                         ),
-                                      ))
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                "Your Story",
-                                style: TextStyle(fontSize: width * 0.028),
-                              ),
-                            ],
-                          )
-                              : Column(
-                            children: [
-                              Container(
-                                height: 75,
-                                width: 75,
-                                padding: const EdgeInsets.all(1),
-                                margin: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: CFSColors.blue, width: 3.5)),
-                                child: Image.asset(CFSImages.userIcon),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                "Dev Suffian".length > 10
-                                    ? "Dev Suffian".substring(0, 10)
-                                    : "Dev Suffian",
-                                style: TextStyle(
-                                  fontSize: width * 0.025,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          );
+                                        Positioned(
+                                            bottom: 8,
+                                            right: 8,
+                                            child: Container(
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: CFSColors.blue),
+                                              child: const Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 3,
+                                    ),
+                                    Text(
+                                      "Your Story",
+                                      style: TextStyle(fontSize: width * 0.028),
+                                    ),
+                                  ],
+                                )
+                              : GestureDetector(
+                                  onTap: () {
+                                    Get.to(() =>  SeeStoriesScreen());
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 75,
+                                        width: 75,
+                                        padding: const EdgeInsets.all(1),
+                                        margin: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: CFSColors.blue,
+                                                width: 3.5)),
+                                        child: Image.asset(CFSImages.userIcon),
+                                      ),
+                                      const SizedBox(
+                                        height: 3,
+                                      ),
+                                      Text(
+                                        "Dev Suffian".length > 10
+                                            ? "Dev Suffian".substring(0, 10)
+                                            : "Dev Suffian",
+                                        style: TextStyle(
+                                          fontSize: width * 0.025,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                );
                         },
                       ),
                     ),
@@ -135,12 +143,11 @@ class HomeScreen extends StatelessWidget {
             ),
             SliverList(
                 delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    return PostModule(index: index);
-                  },
-                  childCount: 10,
-                )
-            )
+              (context, index) {
+                return PostModule(index: index);
+              },
+              childCount: 10,
+            ))
           ],
         ),
       ),
