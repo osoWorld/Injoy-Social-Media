@@ -24,7 +24,6 @@ class PostModule extends StatelessWidget {
 
   void _handleDoubleTap() {
     controller.showLottieList[index].value = true;
-    controller.isLiked[index].value = !controller.isLiked[index].value;
 
     Timer(const Duration(seconds: 3), () {
       controller.showLottieList[index].value = false;
@@ -93,8 +92,8 @@ class PostModule extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _handleDoubleTap();
-                    },
+                      controller.isLiked[index].value = !controller.isLiked[index].value;
+                      },
                     child: Obx(
                       () {
                         return PostInteractionWidget(
