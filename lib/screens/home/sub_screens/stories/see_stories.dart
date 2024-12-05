@@ -17,7 +17,6 @@ class SeeStoriesScreen extends StatelessWidget {
   String enteredText = "Send Message"; // Default text
   OverlayEntry? overlayEntry; // Reference to the overlay entry
   final focusNode = FocusNode();
-  double dragOffset = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,154 +30,174 @@ class SeeStoriesScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.only(top: height * 0.035),
-          color: Colors.black,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: height * 0.85,
-                  width: width,
-                  padding: EdgeInsets.symmetric(vertical: height * 0.02),
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(32))),
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(32)),
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            CFSImages.wallpaper2,
-                            width: width,
-                            height: height,
-                            fit: BoxFit.cover,
-                          ),
-                          Positioned(
-                            top: 5,
-                            right: 6,
-                            left: 6,
-                            child: LinearProgressIndicator(
-                              value: 0.45,
-                              minHeight: 2,
-                              backgroundColor: Colors.white.withOpacity(0.4),
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                CFSColors.blue,
+        body: GestureDetector(
+          onVerticalDragUpdate: (details) {
+            storyController.updateDragOffset(details.delta.dy, height);
+          },
+          onVerticalDragEnd: (details) {
+            storyController.handleDragEnd();
+          },
+          child: Container(
+            padding: EdgeInsets.only(top: height * 0.035),
+            color: Colors.black,
+            child: Stack(
+                children: [
+              Obx(() {
+                return Transform.translate(
+                  offset: Offset(0, storyController.dragOffset.value),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: height * 0.85,
+                        width: width,
+                        padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(32)),
+                          child: Stack(
+                            children: [
+                              Image.asset(
+                                CFSImages.wallpaper2,
+                                width: width,
+                                height: height,
+                                fit: BoxFit.cover,
                               ),
-                            ),
-                          ),
-                          Positioned(
-                              top: 20,
-                              left: 4,
-                              right: 4,
-                              child: Card(
-                                elevation: 3,
-                                color: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(28),
+                              Positioned(
+                                top: 5,
+                                right: 6,
+                                left: 6,
+                                child: LinearProgressIndicator(
+                                  value: 0.45,
+                                  minHeight: 2,
+                                  backgroundColor: Colors.white.withOpacity(0.4),
+                                  valueColor: const AlwaysStoppedAnimation<Color>(
+                                    CFSColors.blue,
+                                  ),
                                 ),
-                                shadowColor:
-                                    CFSColors.myGreyDarkMode.withOpacity(0.5),
-                                child: Center(
-                                  child: ListTile(
-                                    leading: const CFSCircularImage(
-                                      size: 45,
-                                    ),
-                                    title: Padding(
-                                      padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Dev Suffian",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            width: 6,
-                                          ),
-                                          Text(
-                                            "4h",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white
-                                                    .withOpacity(0.8)),
-                                          ),
-                                        ],
+                              ),
+                              Positioned(
+                                top: 20,
+                                left: 4,
+                                right: 4,
+                                child: Card(
+                                  elevation: 3,
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28),
+                                  ),
+                                  shadowColor:
+                                  CFSColors.myGreyDarkMode.withOpacity(0.5),
+                                  child: Center(
+                                    child: ListTile(
+                                      leading: const CFSCircularImage(
+                                        size: 45,
                                       ),
-                                    ),
-                                    trailing: InkWell(
-                                      onTap: () => {},
-                                      child: const Icon(
-                                        Icons.more_vert,
-                                        color: Colors.white,
+                                      title: Padding(
+                                        padding:
+                                        const EdgeInsets.only(bottom: 6.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Dev Suffian",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(
+                                              width: 6,
+                                            ),
+                                            Text(
+                                              "4h",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white
+                                                      .withOpacity(0.8)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      trailing: InkWell(
+                                        onTap: () => {},
+                                        child: const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              )),
-                        ],
-                      )),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-                  child: Row(
-                    children: [
-                      Obx(
-                        () {
-                          return IconButton(
-                              onPressed: () {
-                                storyController.isLiked.value =
-                                    !storyController.isLiked.value;
-                              },
-                              icon: Icon(
-                                storyController.isLiked.value
-                                    ? Iconsax.heart
-                                    : Iconsax.heart5,
-                                color: CFSColors.red,
-                              ));
-                        },
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            showOverlayTextField(context);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border:
-                                  Border.all(color: CFSColors.white, width: 1),
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                enteredText,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white.withOpacity(0.7),
-                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            openPostShareBottomSheet(context);
-                          },
-                          icon: const Icon(Iconsax.send_2))
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 8),
+                        child: Row(
+                          children: [
+                            Obx(
+                                  () {
+                                return IconButton(
+                                    onPressed: () {
+                                      storyController.isLiked.value =
+                                      !storyController.isLiked.value;
+                                    },
+                                    icon: Icon(
+                                      storyController.isLiked.value
+                                          ? Iconsax.heart
+                                          : Iconsax.heart5,
+                                      color: CFSColors.red,
+                                    ));
+                              },
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showOverlayTextField(context);
+                                },
+                                child: Container(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    border: Border.all(
+                                        color: CFSColors.white, width: 1),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      enteredText,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  openPostShareBottomSheet(context);
+                                },
+                                icon: const Icon(Iconsax.send_2))
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
+                );
+              },),
+            ]),
           ),
         ),
       ),
@@ -199,7 +218,7 @@ class SeeStoriesScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
           child: Obx(
-                () {
+            () {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -227,10 +246,10 @@ class SeeStoriesScreen extends StatelessWidget {
                     child: GridView.builder(
                       itemCount: 20,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16),
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 16),
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
@@ -239,8 +258,8 @@ class SeeStoriesScreen extends StatelessWidget {
                                 GestureDetector(
                                     onTap: () {
                                       storyController.isTapped[index].value =
-                                      !storyController
-                                          .isTapped[index].value;
+                                          !storyController
+                                              .isTapped[index].value;
                                     },
                                     child: const CFSCircularImage(
                                       size: 65,
@@ -249,13 +268,13 @@ class SeeStoriesScreen extends StatelessWidget {
                                 Obx(() {
                                   return storyController.isTapped[index].value
                                       ? const Positioned(
-                                    bottom: 1,
-                                    right: 1,
-                                    child: Icon(
-                                      Iconsax.tick_circle5,
-                                      color: CFSColors.blue,
-                                    ),
-                                  )
+                                          bottom: 1,
+                                          right: 1,
+                                          child: Icon(
+                                            Iconsax.tick_circle5,
+                                            color: CFSColors.blue,
+                                          ),
+                                        )
                                       : const SizedBox.shrink();
                                 })
                               ],
@@ -312,10 +331,10 @@ class SeeStoriesScreen extends StatelessWidget {
 
     final animationController = AnimationController(
         duration: const Duration(milliseconds: 300),
-        vsync: Navigator.of(context)
-    );
+        vsync: Navigator.of(context));
 
-    final animation = CurvedAnimation(parent: animationController, curve: Curves.easeInOut);
+    final animation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeInOut);
 
     OverlayEntry? overlayEntry;
 
@@ -349,24 +368,32 @@ class SeeStoriesScreen extends StatelessWidget {
                             focusNode: focusNode,
                             style: const TextStyle(fontSize: 14),
                             onSubmitted: (value) {
-                              enteredText = value.isNotEmpty ? value : "Send Message";
+                              enteredText =
+                                  value.isNotEmpty ? value : "Send Message";
                               closeOverlay();
                             },
                             decoration: InputDecoration(
                                 hintText: "Send Message",
-                                hintStyle:
-                                const TextStyle(fontSize: 14, color: Colors.white),
-                                enabledBorder: const OutlineInputBorder().copyWith(
-                                    borderRadius: BorderRadius.circular(24),
-                                    borderSide: const BorderSide(
-                                        width: 1, color: CFSColors.white)),
-                                focusedBorder: const OutlineInputBorder().copyWith(
-                                    borderRadius: BorderRadius.circular(24),
-                                    borderSide: const BorderSide(
-                                        width: 1, color: CFSColors.white))),
+                                hintStyle: const TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                                enabledBorder: const OutlineInputBorder()
+                                    .copyWith(
+                                        borderRadius: BorderRadius.circular(24),
+                                        borderSide: const BorderSide(
+                                            width: 1, color: CFSColors.white)),
+                                focusedBorder: const OutlineInputBorder()
+                                    .copyWith(
+                                        borderRadius: BorderRadius.circular(24),
+                                        borderSide: const BorderSide(
+                                            width: 1, color: CFSColors.white))),
                           ),
                         ),
-                        IconButton(onPressed: () => {}, icon: const Icon(Iconsax.send_1, color: CFSColors.blue,))
+                        IconButton(
+                            onPressed: () => {},
+                            icon: const Icon(
+                              Iconsax.send_1,
+                              color: CFSColors.blue,
+                            ))
                       ],
                     ),
                   ),
@@ -403,6 +430,7 @@ class SeeStoriesScreen extends StatelessWidget {
       overlayEntry = null;
     }
     focusNode.unfocus();
-    enteredText = textController.text.isNotEmpty ? textController.text : "Send Message";
+    enteredText =
+        textController.text.isNotEmpty ? textController.text : "Send Message";
   }
 }

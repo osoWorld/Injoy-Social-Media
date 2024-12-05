@@ -5,12 +5,27 @@ class StoryController extends GetxController {
 
   final isTapped = <RxBool>[].obs;
   final isLiked = false.obs;
+  var dragOffset = 0.0.obs; // Reactive drag offset
+  final double dismissThreshold = 200.0; // Drag distance to dismiss the screen
+
 
   void initializeTappingList(int itemCount) {
     isTapped.value = List.generate(itemCount, (_) => false.obs);
   }
 
-  // void openPostShareBottomSheet(BuildContext context) {
+  void updateDragOffset(double delta, double height) {
+    dragOffset.value = (dragOffset.value + delta).clamp(0.0, height);
+  }
+
+  void handleDragEnd() {
+    if (dragOffset.value > dismissThreshold) {
+      Get.back(); // Dismiss the screen
+    } else {
+      dragOffset.value = 0.0; // Reset offset
+    }
+  }
+
+// void openPostShareBottomSheet(BuildContext context) {
   //   final width = CFSHelperFunctions.screenWidth();
   //   final dark = CFSHelperFunctions.isDarkMode(context);
   //
