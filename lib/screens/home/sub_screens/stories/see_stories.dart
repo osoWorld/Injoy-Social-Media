@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:injoy/common/widgets/image/circular_image.dart';
 import 'package:injoy/screens/home/sub_screens/controllers/story_controller.dart';
+import 'package:injoy/screens/home/sub_screens/widgets/story_popup_menu.dart';
 import 'package:injoy/utils/constants/colors.dart';
 import 'package:injoy/utils/constants/image_strings.dart';
 
@@ -37,167 +38,165 @@ class SeeStoriesScreen extends StatelessWidget {
           onVerticalDragEnd: (details) {
             storyController.handleDragEnd();
           },
-          child: Container(
-            padding: EdgeInsets.only(top: height * 0.035),
-            color: Colors.black,
-            child: Stack(
-                children: [
-              Obx(() {
-                return Transform.translate(
-                  offset: Offset(0, storyController.dragOffset.value),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: height * 0.85,
-                        width: width,
-                        padding: EdgeInsets.symmetric(vertical: height * 0.02),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(32)),
-                        ),
-                        child: ClipRRect(
-                          borderRadius:
-                          const BorderRadius.all(Radius.circular(32)),
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                CFSImages.wallpaper2,
-                                width: width,
-                                height: height,
-                                fit: BoxFit.cover,
-                              ),
-                              Positioned(
-                                top: 5,
-                                right: 6,
-                                left: 6,
-                                child: LinearProgressIndicator(
-                                  value: 0.45,
-                                  minHeight: 2,
-                                  backgroundColor: Colors.white.withOpacity(0.4),
-                                  valueColor: const AlwaysStoppedAnimation<Color>(
-                                    CFSColors.blue,
-                                  ),
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(top: height * 0.035),
+              color: Colors.black,
+              child: Stack(
+                  children: [
+                Obx(() {
+                  return Transform.translate(
+                    offset: Offset(0, storyController.dragOffset.value),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: height * 0.85,
+                          width: width,
+                          padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(32)),
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  CFSImages.wallpaper3,
+                                  width: width,
+                                  height: height,
+                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                              Positioned(
-                                top: 20,
-                                left: 4,
-                                right: 4,
-                                child: Card(
-                                  elevation: 3,
-                                  color: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                  shadowColor:
-                                  CFSColors.myGreyDarkMode.withOpacity(0.5),
-                                  child: Center(
-                                    child: ListTile(
-                                      leading: const CFSCircularImage(
-                                        size: 45,
+                                Positioned(
+                                  top: 5,
+                                  right: 6,
+                                  left: 6,
+                                  child: Obx(() {
+                                    return LinearProgressIndicator(
+                                      value: storyController.progress.value,
+                                      minHeight: 2,
+                                      backgroundColor: Colors.white.withOpacity(0.4),
+                                      valueColor: const AlwaysStoppedAnimation<Color>(
+                                        CFSColors.blue,
                                       ),
-                                      title: Padding(
-                                        padding:
-                                        const EdgeInsets.only(bottom: 6.0),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Dev Suffian",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Text(
-                                              "4h",
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.white
-                                                      .withOpacity(0.8)),
-                                            ),
-                                          ],
+                                    );
+                                  },),
+                                ),
+                                Positioned(
+                                  top: 20,
+                                  left: 4,
+                                  right: 4,
+                                  child: Card(
+                                    elevation: 3,
+                                    color: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(28),
+                                    ),
+                                    shadowColor:
+                                    CFSColors.myGreyDarkMode.withOpacity(0.5),
+                                    child: Center(
+                                      child: ListTile(
+                                        leading: const CFSCircularImage(
+                                          size: 45,
                                         ),
-                                      ),
-                                      trailing: InkWell(
-                                        onTap: () => {},
-                                        child: const Icon(
-                                          Icons.more_vert,
-                                          color: Colors.white,
+                                        title: Padding(
+                                          padding:
+                                          const EdgeInsets.only(bottom: 6.0),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                "Dev Suffian",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              Text(
+                                                "4h",
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white
+                                                        .withOpacity(0.8)),
+                                              ),
+                                            ],
+                                          ),
                                         ),
+                                        trailing: const StoryPopupMenuWidget(),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 8),
-                        child: Row(
-                          children: [
-                            Obx(
-                                  () {
-                                return IconButton(
-                                    onPressed: () {
-                                      storyController.isLiked.value =
-                                      !storyController.isLiked.value;
-                                    },
-                                    icon: Icon(
-                                      storyController.isLiked.value
-                                          ? Iconsax.heart
-                                          : Iconsax.heart5,
-                                      color: CFSColors.red,
-                                    ));
-                              },
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  showOverlayTextField(context);
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 8),
+                          child: Row(
+                            children: [
+                              Obx(
+                                    () {
+                                  return IconButton(
+                                      onPressed: () {
+                                        storyController.isLiked.value =
+                                        !storyController.isLiked.value;
+                                      },
+                                      icon: Icon(
+                                        storyController.isLiked.value
+                                            ? Iconsax.heart
+                                            : Iconsax.heart5,
+                                        color: CFSColors.red,
+                                      ));
                                 },
-                                child: Container(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
-                                    border: Border.all(
-                                        color: CFSColors.white, width: 1),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      enteredText,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white.withOpacity(0.7),
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showOverlayTextField(context);
+                                  },
+                                  child: Container(
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(24),
+                                      border: Border.all(
+                                          color: CFSColors.white, width: 1),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        enteredText,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white.withOpacity(0.7),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  openPostShareBottomSheet(context);
-                                },
-                                icon: const Icon(Iconsax.send_2))
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },),
-            ]),
+                              IconButton(
+                                  onPressed: () {
+                                    openPostShareBottomSheet(context);
+                                  },
+                                  icon: const Icon(Iconsax.send_2))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },),
+              ]),
+            ),
           ),
         ),
       ),

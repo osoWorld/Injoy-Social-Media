@@ -1,6 +1,7 @@
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
-class StoryController extends GetxController {
+class StoryController extends GetxController with SingleGetTickerProviderMixin {
   static StoryController get instance => Get.find();
 
   final isTapped = <RxBool>[].obs;
@@ -8,6 +9,27 @@ class StoryController extends GetxController {
   var dragOffset = 0.0.obs; // Reactive drag offset
   final double dismissThreshold = 200.0; // Drag distance to dismiss the screen
 
+  late AnimationController animationController;
+  late Animation animation;
+  var progress = 0.0.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 6));
+
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(animationController)..addListener(() {
+      progress.value = animation.value;
+    },);
+
+    animationController.forward();
+  }
+
+  @override
+  void onClose() {
+    animationController.dispose();
+    super.onClose();
+  }
 
   void initializeTappingList(int itemCount) {
     isTapped.value = List.generate(itemCount, (_) => false.obs);
