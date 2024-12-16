@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:injoy/common/widgets/image/circular_image.dart';
+import 'package:injoy/screens/chat/sub_screens/chat_details.dart';
 
 import '../../utils/constants/colors.dart';
 import '../../utils/helpers/helper_functions.dart';
@@ -77,34 +79,37 @@ class ChatScreen extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: 15,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ListTile(
-                        leading: const CFSCircularImage(size: 56,),
-                        title: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Dev Suffian",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
-                            ),
-                            Text(
-                              "Liked a message",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        trailing: Text(
-                          "8h",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: dark
-                                  ? Colors.white.withOpacity(0.4)
-                                  : Colors.black.withOpacity(0.4)),
+                    return GestureDetector(
+                      onTap: () => Get.to(() => ChatDetailsScreen()),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: const CFSCircularImage(size: 56,),
+                          title: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Dev Suffian",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
+                              Text(
+                                "Liked a message",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                            ],
+                          ),
+                          trailing: Text(
+                            "8h",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: dark
+                                    ? Colors.white.withOpacity(0.4)
+                                    : Colors.black.withOpacity(0.4)),
+                          ),
                         ),
                       ),
                     );

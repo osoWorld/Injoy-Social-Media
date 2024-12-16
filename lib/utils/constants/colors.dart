@@ -55,4 +55,7 @@ class CFSColors{
   static const Color red = Color(0xFFF21C44);
   static const Color tfDarkGrey = Color(0xFF202123);
 
+  static const Color chatSend = Color(0xFF214160);
+  static const Color chatReceive = Color(0xFF292C35);
+
 }
